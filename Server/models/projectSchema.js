@@ -7,18 +7,21 @@ title: {
 type: String,
 minlength: 5,
 maxlength: 50,
-
+required : true
 },
 description: {
 type: String,
 minlength: 10,
-maxlength: 200
+maxlength: 200,
+required : true
 },
 startDate: {
 type: Date,
+required : true
 },
 endDate: {
 type: Date,
+required : true
 },
 tasks: [
 {

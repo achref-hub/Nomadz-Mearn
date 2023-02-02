@@ -1,21 +1,25 @@
-import Project from './Pages/Project';
-import Card from './Pages/card'
-import CardValid from './Pages/cardvalid';
-import Details from './Pages/Details'
-import { Routes ,Route,Navigate  } from 'react-router-dom';
+import { Fragment } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignInSide from "./components/Login/Login";
+import Register from "./components/Register/Register";
+import Footer from "./components/Footer/Footer";
+import DataTable from "./components/DataTable/DataTable";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   return (
-    <div>
-    <Routes>
-      <Route exact path='/Project' element = {<Project/>} />
-      <Route exact path='/CardValid' element = {<CardValid/>} />
-      <Route exact path='/Details:id' element = {<Details/>} />
-      {/* <Route path="*" element={<Navigate to="Project" />} /> */}
-    </Routes>
-   
-    </div>  
-           
+    <>
+      <Router>
+        <Fragment>
+          <Routes>
+            <Route exact path="/" element={<SignInSide />} />
+            <Route exact path="/register" element={<Register />} />
+            <Route exact path="/Project" element={<DataTable />} />
+          </Routes>
+        </Fragment>
+      </Router>
+      <Footer />
+    </>
   );
 }
 

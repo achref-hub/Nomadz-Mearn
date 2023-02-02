@@ -1,6 +1,7 @@
 
 var projectSchemaService = require('../services/projectSchemaService');
 
+
 exports.addNewProject = async function (req ,res, next){
   try {
     console.log(req.body,'reqbody');
@@ -52,6 +53,7 @@ exports.updateProjects = async function (req, res) {
     });
   }
 };
+
 
 exports.removeProjects = async function (req, res, next) {
   try {

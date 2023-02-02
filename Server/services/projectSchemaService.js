@@ -22,11 +22,10 @@ exports.addProject = async function(document){
       throw Error('Error while finding Projects ');
     }
   };
-
   exports.updateProject =async function(id , data){
     try{
-      var content = await projectSchema.findByIdAndUpdate(id , data);
-      return content;
+      var content = await projectSchema.findByIdAndUpdate(id , data, { new: true });
+      return(content);
     }catch(e){
       throw Error("Error while updating Project");
     }

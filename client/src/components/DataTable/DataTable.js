@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getProject, addProject} from "../../services/Project";
+import { getProject, addProject,updateProject,deleteProject} from "../../services/Project";
 import { forwardRef } from "react";
 import "./DataTable.css";
 import {
@@ -51,7 +51,8 @@ const tableIcons = {
 };
 
 const DataTable = ({ user }) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
+
   const columns = [
     {
       title: "Title",
@@ -76,23 +77,34 @@ const DataTable = ({ user }) => {
     getData();
   }, []);
 
+
   function refreshPage() {
     window.location.reload();
   }
 
   const getData = async () => {
     await getProject.then((response) => {
-      setData(response);
+      setData(response.data);
     });
   };
-  console.log(data,"data");
 
-  // const deleteTask = async (id) => {
-  //   await deleteTodo(id);
-  //   refreshPage();
-  // };
 
-  const addproject = async (Project) => {
+  // const update_project = async () =>{
+
+  //   await axios.put(`http://localhost:3000/api/updateProject/${params.id}`, data)
+  //   .then(res=>{
+  //       // setNewVal(res.data)
+  //       console.log(res);
+  //   }).catch(err=>{
+  //       console.log(err);
+  //   })}
+
+  const delete_project = async (id) => {
+    await deleteProject(id);
+    refreshPage();
+  };
+
+  const add_project = async (Project) => {
     if (localStorage.getItem("token")) {
       await addProject(Project).then((res) => {
         if (res) {
@@ -103,10 +115,10 @@ const DataTable = ({ user }) => {
     } else return false;
   };
 
-  // const updateTask = async (id, updated) => {
-  //   await updateTodo(id, updated);
-  //   refreshPage();
-  // };
+  const update_project= async (id, updated) => {
+    await updateProject(id, updated);
+    refreshPage();
+  };
 
   return (
     <>
@@ -121,22 +133,22 @@ const DataTable = ({ user }) => {
             columns={columns}
             editable={{
               onRowAdd: (newRow) =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve, reject) => {  
                   setTimeout(() => {
-                    addproject(newRow);
+                    add_project(newRow);
                     resolve();
                   }, 2000);
                 }),
-              // onRowDelete: (selectedRow) =>
-              //   new Promise((resolve, reject) => {
-              //     deleteTask(selectedRow._id);
-              //     resolve();
-              //   }),
-              // onRowUpdate: (updatedRow, oldRow) =>
-              //   new Promise((resolve, reject) => {
-              //     updateTask(updatedRow._id, updatedRow);
-              //     resolve();
-              //   }),
+              onRowDelete: (selectedRow) =>
+                new Promise((resolve, reject) => {
+                 delete_project(selectedRow._id);
+                  resolve();
+                }),
+              onRowUpdate: (updatedRow, oldRow) =>
+                new Promise((resolve, reject) => {
+                  update_project(updatedRow._id, updatedRow);
+                  resolve();
+                }),
             }}
             options={{
               actionsColumnIndex: -1,

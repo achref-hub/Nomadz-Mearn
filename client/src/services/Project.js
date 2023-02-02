@@ -26,13 +26,13 @@ function addProject(Project) {
   return response;
 }
 
-// const deleteProject = (id) => axios.delete(`${uri}/${id}`);
+const deleteProject = (id) => axios.delete(`${uri}/deleteProject/${id}`);
 
-// const updateProject = (id, newProject) => axios.patch(`${uri}/${id}`, newProject);
+const updateProject = (id, newProject) => axios.put(`${uri}/updateProject/${id}`, newProject);
 
 module.exports = {
   getProject,
   addProject,
-  // deleteProject,
-  // updateProject,
+  deleteProject,
+  updateProject
 };

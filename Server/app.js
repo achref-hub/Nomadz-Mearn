@@ -12,6 +12,7 @@ connectDB();
 
 app.use("/api", require("./routes/projectSchema"));
 app.use("/user", UserRouter);
+app.use("/Task", require("./routes/taskRoute"));
 
 
 app.listen(3000, ()=>{console.log("connecting to port 3000");})

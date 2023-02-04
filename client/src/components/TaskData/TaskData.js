@@ -63,15 +63,11 @@ const TaskData = ({ user }) => {
       field: "description",
     },
     {
-      title: "StartDate",
-      field: "startDate",
+      title: "dueDate",
+      field: "dueDate",
       type: "date",
     },
-    {
-      title: "EndDate",
-      field: "endDate",
-      type: "date",
-    },
+
   ];
   useEffect(() => {
     getData();
@@ -125,8 +121,7 @@ const TaskData = ({ user }) => {
                   setTimeout(() => {
                     add_Task(newRow);
                     resolve();
-                    window.location.href = '/Task';
-                  }, 2000);
+                  }, 1000);
                 }),
               onRowDelete: (selectedRow) =>
                 new Promise((resolve, reject) => {

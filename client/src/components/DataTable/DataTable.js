@@ -24,6 +24,7 @@ import {
 import Header from "../Header/Header";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import { Button } from "@material-ui/core";
 
 toast.configure();
 const tableIcons = {
@@ -35,6 +36,7 @@ const tableIcons = {
     <ChevronRight {...props} ref={ref} />
   )),
   Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  AddTask: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
   Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
   FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
@@ -50,7 +52,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const DataTable = ({ user }) => {
+const DataTable = ({ _id }) => {
   const [data, setData] = useState();
 
   const columns = [
@@ -76,7 +78,7 @@ const DataTable = ({ user }) => {
   useEffect(() => {
     getData();
   }, []);
-
+console.log(data,'data');
 
   function refreshPage() {
     window.location.reload();
@@ -125,7 +127,7 @@ const DataTable = ({ user }) => {
                 new Promise((resolve, reject) => {  
                   setTimeout(() => {
                     add_project(newRow);
-                    resolve();
+                    resolve(window.location.href="./Task");
                   }, 2000);
                 }),
               onRowDelete: (selectedRow) =>

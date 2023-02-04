@@ -1,6 +1,8 @@
 const axios = require("axios");
 
 const uri = "http://localhost:3000/api/";
+
+
 const getProject = axios
   .get(uri)
   .then((response) => response.data)

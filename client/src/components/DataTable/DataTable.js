@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getProject, addProject,updateProject,deleteProject} from "../../services/Project";
+import { getProject, addProject ,updateProject,deleteProject} from "../../services/Project";
 import { forwardRef } from "react";
 import "./DataTable.css";
 import {
@@ -87,17 +87,6 @@ const DataTable = ({ user }) => {
       setData(response.data);
     });
   };
-
-
-  // const update_project = async () =>{
-
-  //   await axios.put(`http://localhost:3000/api/updateProject/${params.id}`, data)
-  //   .then(res=>{
-  //       // setNewVal(res.data)
-  //       console.log(res);
-  //   }).catch(err=>{
-  //       console.log(err);
-  //   })}
 
   const delete_project = async (id) => {
     await deleteProject(id);

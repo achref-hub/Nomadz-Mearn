@@ -4,6 +4,7 @@ import SignInSide from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Footer from "./components/Footer/Footer";
 import DataTable from "./components/DataTable/DataTable";
+import TaskData from "./components/TaskData/TaskData";
 import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route exact path="/" element={<SignInSide />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/Project" element={<DataTable />} />
+            <Route exact path="/Task" element={<TaskData />} />
           </Routes>
         </Fragment>
       </Router>

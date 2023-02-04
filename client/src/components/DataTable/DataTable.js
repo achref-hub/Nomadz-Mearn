@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getProject, addProject ,updateProject,deleteProject} from "../../services/Project";
+import { getProject, addProject ,updateProject,deleteProject} from "../../redux/Project";
 import { forwardRef } from "react";
 import "./DataTable.css";
 import {

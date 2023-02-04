@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { getTask, addTask ,updateTask,deleteTask} from "../../services/Task";
+import { getTask, addTask ,updateTask,deleteTask} from "../../redux/Task";
 import { forwardRef } from "react";
 import "./TaskData.css";
 import {

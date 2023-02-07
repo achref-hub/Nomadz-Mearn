@@ -24,8 +24,8 @@ import {
 import Header from "../Header/Header";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { Button } from "@material-ui/core";
-import {loadProjects,deleteProjects,addProject} from '../../redux/ProjectAction'
+import {loadProjects,deleteProjects,addProject,updateProject} from '../../redux/ProjectAction'
+
 toast.configure();
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -99,10 +99,10 @@ const DataTable = ({ _id }) => {
     } else toast.error("Title is required (3)");;
   };
 
-  // const update_project= async (id, updated) => {
-  //   await updateProject(id, updated);
-  //   refreshPage();
-  // };
+  const update_project= async (id, project) => {
+    dispatch(updateProject(id, project));
+    toast.success("Project Updated successfully");
+  };
 
   return (
     <>
@@ -128,11 +128,11 @@ const DataTable = ({ _id }) => {
                   projectDeleted(selectedRow._id);
                   resolve();
                 }),
-              // onRowUpdate: (updatedRow, oldRow) =>
-              //   new Promise((resolve, reject) => {
-              //     update_project(updatedRow._id, updatedRow);
-              //     resolve();
-              //   }),
+              onRowUpdate: (updatedRow, oldRow) =>
+                new Promise((resolve, reject) => {
+                  update_project(updatedRow._id, updatedRow);
+                  resolve();
+                }),
             }}
             options={{
               actionsColumnIndex: -1,

@@ -16,10 +16,11 @@ const projectsReducers = (state = initialState, action)=>{
         };
         case types.DELETE_PROJECTS : 
         case types.ADD_PROJECTS : 
+        case types.UPDATE_PROJECTS : 
         return{
             ...state,
             loading : false,
-        };
+        };       
         default :
         return state;
     }

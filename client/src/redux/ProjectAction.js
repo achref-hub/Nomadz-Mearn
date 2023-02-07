@@ -12,6 +12,10 @@ const addProjects = ()=>({
 const deleteProject = ()=>({
     type : types.DELETE_PROJECTS,
 })
+
+const updatedProject = ()=>({
+    type : types.UPDATE_PROJECTS,
+})
 const uri ="http://localhost:3000/api/";
 
 export const loadProjects = ()=>{
@@ -48,18 +52,19 @@ export const addProject = (project)=>{
         .catch((err)=>console.log(err))
 }}
 
+export const updateProject = (id,project)=>{
+    return function (dispatch) {
+        axios
+        .put(`${uri}/updateProject/${id}`,project )
+        .then((res)=>{
+            console.log(res,'res');
+            dispatch(updatedProject());
+        })
+        .catch((err)=>console.log(err))
+}}
 
-// export const AddProject = (Project)=>{
-//     return (dispatch) => {
-//         axios
-//           .post(`${uri}/addNewProject`, { Project })
-//           .then((res) => {
-//             dispatch({
-//               type: ' CREATE_PROJECT',
-//               payload: res.data,
-//             });
-//           });
-//       };
-// }
+
+
+
 
 

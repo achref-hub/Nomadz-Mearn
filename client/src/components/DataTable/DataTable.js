@@ -3,7 +3,6 @@ import MaterialTable from "material-table";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { forwardRef } from "react";
 import {useDispatch , useSelector} from 'react-redux';
-import { fetchProjects } from "../../redux/ProjectAction";
 import "./DataTable.css";
 import {
   ViewColumn,
@@ -26,7 +25,7 @@ import Header from "../Header/Header";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { Button } from "@material-ui/core";
-import {loadProjects} from '../../redux/ProjectAction'
+import {loadProjects,deleteProjects,addProject} from '../../redux/ProjectAction'
 toast.configure();
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -81,32 +80,24 @@ const DataTable = ({ _id }) => {
     dispatch(loadProjects())
  }, []);
 
-  function refreshPage() {
-    window.location.reload();
-  }
+  // function refreshPage() {
+  //   window.location.reload();
+  // }
   console.log(projects,'project');
 
-  // const getData = async () => {
-  //   await getProject.then((response) => {
-  //     setData(response.data);
-  //   });
-  // };
+  const projectDeleted = (id)=>{
+    dispatch(deleteProjects(id));
+    toast.success("Project deleted successfully");
 
-  // const delete_project = async (id) => {
-  //   await deleteProject(id);
-  //   refreshPage();
-  // };
+  }
 
-  // const add_project = async (Project) => {
-  //   if (localStorage.getItem("token")) {
-  //     await addProject(Project).then((res) => {
-  //       if (res) {
-  //         toast.success("Project added successfully");
-  //         refreshPage();
-  //       } else toast.error("Title is required (3)");
-  //     });
-  //   } else return false;
-  // };
+
+  const add_project = async (Project) => {
+    if (localStorage.getItem("token")) {
+      await dispatch(addProject(Project)) 
+      toast.success("Project added successfully");
+    } else toast.error("Title is required (3)");;
+  };
 
   // const update_project= async (id, updated) => {
   //   await updateProject(id, updated);
@@ -125,18 +116,18 @@ const DataTable = ({ _id }) => {
             data={projects.data}
             columns={columns}
             editable={{
-              // onRowAdd: (newRow) =>
-              //   new Promise((resolve, reject) => {  
-              //     setTimeout(() => {
-              //       add_project(newRow);
-              //       resolve(window.location.href="./Task");
-              //     }, 2000);
-              //   }),
-              // onRowDelete: (selectedRow) =>
-              //   new Promise((resolve, reject) => {
-              //    delete_project(selectedRow._id);
-              //     resolve();
-              //   }),
+              onRowAdd: (newRow) =>
+                new Promise((resolve, reject) => {  
+                  setTimeout(() => {
+                    add_project(newRow);
+                    resolve();
+                  }, 2000);
+                }),
+              onRowDelete: (selectedRow) =>
+                new Promise((resolve, reject) => {
+                  projectDeleted(selectedRow._id);
+                  resolve();
+                }),
               // onRowUpdate: (updatedRow, oldRow) =>
               //   new Promise((resolve, reject) => {
               //     update_project(updatedRow._id, updatedRow);
